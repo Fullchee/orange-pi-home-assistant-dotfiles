@@ -67,7 +67,6 @@
 [core]
 	editor = hx
 	excludesfile = ~/.gitignore_global
-	pager = delta
 
 	# launch a process for each active repo
 	# fsmonitor = true
