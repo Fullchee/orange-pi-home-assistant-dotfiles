@@ -12,23 +12,9 @@ fi
 unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
-# RPROMPT='[%D{%L:%M:%S}] '$RPROMPTE
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# fpath=(~/path/to/wd $fpath)
-# export HTTPS=true
-# export SSL_CRT_FILE=~/.localhost-ssl/localhost.crt
-# export SSL_KEY_FILE=~/.localhost-ssl/localhost.key
 export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
 
 source $HOME/.dotfiles/file-scripts.sh
 source $HOME/.dotfiles/git-scripts.sh
 source $HOME/.dotfiles/programming-scripts.sh
-if [ -f "$HOME/.dotfiles/citylitics/citylitics.sh" ]; then
-    source $HOME/.dotfiles/citylitics/citylitics.sh
-fi
-if [ -f "$HOME/.dotfiles/citylitics/citylitics-secrets.sh" ]; then
-    source $HOME/.dotfiles/citylitics/citylitics-secrets.sh
-fi
