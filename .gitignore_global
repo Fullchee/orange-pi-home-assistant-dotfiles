@@ -1,0 +1,7 @@
+.DS_Store
+.vscode
+.*.swp
+*/.vscode
+npm-debug.log
+node_modules
+.dotfiles/citylitics/citylitics-secrets.sh

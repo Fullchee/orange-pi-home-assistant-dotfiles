@@ -1,0 +1,154 @@
+[alias]
+	# without the `!` prefix: limited to executing Git commands
+		# eg: `test = git log`: `git test` => `git git log`
+	# with `!`: can run arbitrary commands
+		# means that you can run arbitrary code, like &&
+		# eg: myscript = !git fetch origin && git merge origin/main
+		# restore-branch = "!f() { git fetch; git restore --source origin/$1 $2; }; f"
+
+	# typos
+	pul = pull
+	pus = push
+
+
+	st = status -s
+
+	#### log
+
+	adog = log --all --decorate --oneline --graph
+	cp-last-hash="!git rev-parse HEAD | pbcopy"
+	dft = difftool
+	dlog = "!f() { : git log ; GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+
+
+	ignore = update-index --assume-unchanged  # only for files
+	# for folders: add to `.git/info/exclude`
+	unignore = update-index --no-assume-unchanged
+	ignored = !git ls-files -v | grep "^[[:lower:]]"
+
+	empty-commit = !git commit --allow-empty -m 'Empty commit: trigger GH actions'
+
+	# Makes the file exactly the same as main in origin/main
+    # git restore-main file1 file2
+    restore-main = !git fetch && git reset --hard origin/main
+	restore-folder = restore --source=origin/main --staged --worktree --
+
+	# make the file exactly the same as branch $1
+	# git restore-branch branch_name file_name
+	restore-branch = "!f() { git fetch; git restore --source origin/$1 $2; }; f"
+	restore-file = "!f() { git restore --source origin/main -- $@; }; f"
+	restore-files = restore-file
+	restore-files-from-branch = "!f() { git restore --source origin/$1 -- ${@:2}; }; f"
+	revert-file = restore-file
+	revert-folder = restore-folder
+	restore-deleted = !git ls-files --deleted -z | xargs -0 git rm
+
+	amend = !git add ${1-.} && git commit --amend --no-edit
+	set-upstream = !git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD)
+
+	make-executable = update-index --chmod=+x
+	view-executables = ls-files --stage
+
+	squash-commits = !git reset --soft HEAD~3 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
+
+	search-branches = "!f() { git grep $1 `git show-ref --heads`}"
+
+	use-personal-ssh = "!git config core.sshCommand 'ssh -i ~/.ssh/personal_id_ed25519 -o IdentitiesOnly=yes'"
+
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
+
+[branch]
+	sort = -committerdate
+[color]
+	ui = auto
+[column]
+	ui = auto
+[core]
+	editor = hx
+	excludesfile = ~/.gitignore_global
+	pager = delta
+
+	# launch a process for each active repo
+	# fsmonitor = true
+	# untrackedCache = true
+[commit]
+	template = ~/.gitmessage
+	# add commit diff in text editor where I'm writing the commit message
+	verbose = true
+[credential]
+	helper = store
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/local/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/local/bin/gh auth git-credential
+[delta]
+    navigate = true  # use n and N to move between diff sections
+[diff]
+	algorithm = histogram
+	external = difft
+	tool = difftastic
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[difftool]
+    prompt = false
+[difftool "vscode"]
+    cmd = "code --wait --diff  "
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[help]
+	autocorrect = 10
+[init]
+	defaultBranch = main
+[interactive]
+    diffFilter = delta --color-only
+[merge]
+	tool = vscode
+	conflictstyle = zdiff3
+[mergetool "vscode"]
+	cmd = "code --wait "
+
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[submodule]
+	recurse = true
+[push]
+	# always push the local branch to a remote branch with the same name
+	autoSetupRemote = true
+	default = simple
+	followTags = true
+[user]
+	email = fullchee@gmail.com
+	name = Fullchee Zhang
+[open "https://ssh.github.com"]
+	domain = github.com
+[pull]
+	# convenient: if rebase works, great!
+	# if it doesn't work: just `git rebase --abort` and `git merge origin/main`
+	rebase = true
+[rebase]
+	# `git commit --fixup OLD_COMMIT_ID` sets the commit message to 'fixup! old_commit message'
+	# `git rebase --autosquash main` will combine all the fixup! commits with their targets
+	# --autosquash gets auto passed to git rebase
+	autosquash = true
+	autoStash = true
+	updateRefs = true
+[rerere]
+	# remember how you resolved merge conflicts during `git rebase` and auto resolves conflicts when it can
+	enabled = true
+	autoupdate = true
+[tag]
+	sort = version:refname
+[url "git@github.com:"]
+	insteadOf = "https://github.com/"

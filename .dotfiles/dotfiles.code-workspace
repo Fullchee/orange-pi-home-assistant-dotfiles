@@ -1,0 +1,43 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "~/.dotfiles"
+    },
+    {
+      "path": "../.zprezto/runcoms",
+      "name": "~/.zprezto/runcoms"
+    },
+    {
+      "path": "../.config/karabiner",
+      "name": "~/.config/karabiner"
+    },
+    {
+      "path": "../.local/bin",
+      "name": "~/.local/bin"
+    },
+    {
+      "path": "../.ssh/",
+      "name": "~/.ssh"
+    },
+    {
+      "path": "../README.md",
+      "name": "~/README.md"
+    },
+    {
+      "path": "../.zshrc",
+      "name": "~/.zshrc"
+    },
+    {
+      "path": "../.bashrc",
+      "name": "~/.bashrc"
+    }
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "activityBar.background": "#500D55",
+      "titleBar.activeBackground": "#701377",
+      "titleBar.activeForeground": "#FEFCFE"
+    }
+  }
+}
