@@ -25,6 +25,7 @@ sudo apt -y install eza;  # better ls + tree with git and icons
 sudo apt -y install fzf;  # filter in STDIN https://github.com/junegunn/fzf
 sudo apt -y install git;
 sudo apt -y install hx;  # helix: vim with builtin LSP
+curl -sSL https://install.pi-hole.net | bash  # pihole
 
 # install prezto
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' $@
@@ -42,6 +43,40 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
 done
 
 
-# Install pihole
-curl -sSL https://install.pi-hole.net | bash
+sudo apt -y install speedtest;
+sudo apt -y install xclip;  # copy to clipboard from CLI
+sudo apt -y install zoxide;  # better cd with history and frecency
+
+
+# # 1. Get the current IP with CIDR (e.g., 192.168.50.8/24) specifically for eth0
+# CURRENT_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}/\d+')
+
+# # 2. Get the specific gateway for the eth0 interface
+# # We look for the default route that specifically points to eth0
+# CURRENT_GW=$(ip route show default dev eth0 | awk '{print $3}')
+
+# # 3. Safety Check
+# if [ -z "$CURRENT_IP" ] || [ -z "$CURRENT_GW" ]; then
+#     echo "Error: Could not capture IP ($CURRENT_IP) or Gateway ($CURRENT_GW) for eth0."
+#     echo "Make sure the ethernet cable is plugged in and has a temporary DHCP lease."
+#     exit 1
+# fi
+
+# echo "Locking in Ethernet Settings..."
+# echo "Interface: eth0"
+# echo "IP Address: $CURRENT_IP"
+# echo "Gateway:   $CURRENT_GW"
+
+# # 4. Apply the configuration to NetworkManager
+# sudo nmcli con mod "netplan-eth0" \
+#   ipv4.addresses "$CURRENT_IP" \
+#   ipv4.gateway "$CURRENT_GW" \
+#   ipv4.dns "1.1.1.1,8.8.8.8" \
+#   ipv4.method manual
+
+# # 5. Restart the connection to apply changes
+# sudo nmcli con up "netplan-eth0"
+
+# echo "Done! Test with: ping -c 3 8.8.8.8"
+
 sudo pihole setpassword

@@ -30,32 +30,18 @@
 
 ### SSHed on pihole
 
-1. Set the static IP address on the OS level
-
-```sh
-CURRENT_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}/\d+') && \
-CURRENT_GW=$(ip route show default | grep eth0 | awk '{print $3}') && \
-sudo nmcli con mod "netplan-eth0" \
-  ipv4.addresses "$CURRENT_IP" \
-  ipv4.gateway "$CURRENT_GW" \
-  ipv4.dns "1.1.1.1,8.8.8.8" \
-  ipv4.method manual && \
-sudo nmcli con up "netplan-eth0" && \
-echo -e "\nConfigured Static Settings:\nIP: $CURRENT_IP\nGateway: $CURRENT_GW"
-```
-
-2. Generate an SSH key
+1. Generate an SSH key
    1. `ssh-keygen`
-3. Copy the value of the public SSH key
+2. Copy the value of the public SSH key
    1. `cat ~/.ssh/id_ed25519.pub`
-4. Add the key to GitHub as a deploy key (can just access this one repo)
+3. Add the key to GitHub as a deploy key (can just access this one repo)
    1. https://github.com/Fullchee/pihole-dotfiles/settings/keys
-5. Install and switch to zsh
-6. `sudo apt -y install zsh;`
-7. `/bin/zsh`
-8. Setup the bare git repo
+4. Setup the bare git repo
 
 ```bash
+sudo apt update;
+sudo apt upgrade -y;
+sudo apt install -y git;
 git init --bare $HOME/.cfg
 config() {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
@@ -65,7 +51,7 @@ config remote add origin git@github.com:Fullchee/pihole-dotfiles.git
 config fetch origin main
 config reset --hard origin/main
 config branch --set-upstream-to=origin/main main
-zsh ~/.dotfiles/post-install.sh
+bash ~/.dotfiles/post-install.sh
 ```
 
 ### Browser
