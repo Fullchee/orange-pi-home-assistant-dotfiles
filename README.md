@@ -42,6 +42,7 @@
 sudo apt update;
 sudo apt upgrade -y;
 sudo apt install -y git;
+git config --global init.defaultBranch main
 git init --bare $HOME/.cfg
 config() {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
