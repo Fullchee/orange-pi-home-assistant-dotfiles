@@ -35,7 +35,7 @@
 2. Copy the value of the public SSH key
    1. `cat ~/.ssh/id_ed25519.pub`
 3. Add the key to GitHub as a deploy key (can just access this one repo)
-   1. https://github.com/Fullchee/orange-pi-home-assistant/settings/keys
+   1. https://github.com/Fullchee/orange-pi-home-assistant-dotfiles/settings/keys
 4. Setup the bare git repo
 
 ```bash
@@ -48,7 +48,7 @@ config() {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
 config config --local status.showUntrackedFiles no
-config remote add origin git@github.com:Fullchee/pihole-dotfiles.git
+config remote add origin git@github.com:Fullchee/orange-pi-home-assistant-dotfiles.git
 config fetch origin main
 config checkout main
 config reset --hard origin/main

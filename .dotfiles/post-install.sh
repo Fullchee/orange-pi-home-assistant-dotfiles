@@ -20,11 +20,18 @@ echo "Now running in $(zsh --version)"
 
 chsh -s $(which zsh);  # set zsh as default shell
 
-sudo apt -y install bat;  # better cat
-sudo apt -y install eza;  # better ls + tree with git and icons
-sudo apt -y install fzf;  # filter in STDIN https://github.com/junegunn/fzf
-sudo apt -y install git;
-sudo apt -y install hx;  # helix: vim with builtin LSP
+sudo apt-get -y install bat;  # better cat
+sudo apt-get -y install curl;
+
+# docker, already installed on Debian?
+sudo usermod -aG docker $USER
+
+sudo apt-get -y install eza;  # better ls + tree with git and icons
+sudo apt-get -y install fzf;  # filter in STDIN https://github.com/junegunn/fzf
+sudo apt-get -y install git;
+sudo apt-get -y install hx;  # helix: vim with builtin LSP
+
+
 
 # install prezto
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' $@
