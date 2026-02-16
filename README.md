@@ -2,9 +2,10 @@
 
 ### On Mac
 
-1. Download the Armbian OS (third party)
-   1. Don't install from Orange Pi's site (out of date)
-2. Flash Armbian to an SD card with Balena Etcher
+1. Download the Armbian Imager
+   1. Apple silicon: download Armbian.Imager_1.2.8_aarch64.dmg
+   2. https://github.com/armbian/imager/releases
+2. Flash Armbian
 3. Connect the Orange Pi to power and to router via ethernet
 
 ### Asus router
@@ -13,9 +14,9 @@
    1. <http://asusrouter.com>
 2. Get the IP address of the pihole
    1. Confirm you can `ssh root@<ip-address>`
-   2. Password: `orangepi`
-3. `sudo apt update && sudo apt upgrade -y`
-   1. don't start `Iperf3` on boot
+   2. Default Armbian password: `1234`
+3. `sudo apt update && sudo apt upgrade -y && sudo armbian-config`
+   1. don't start `Iperf3` on boot (do I still need this on Armbian?)
 4. Router: reserve that IP address
    1. Asus: LAN -> DHCP -> Manually Assigned IP -> scroll down
    2. Can't do this with Beanfield Airties Air 4960x, even when logged into http://masternode.local/
