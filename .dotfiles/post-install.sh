@@ -23,13 +23,29 @@ chsh -s $(which zsh);  # set zsh as default shell
 sudo apt-get -y install bat;  # better cat
 sudo apt-get -y install curl;
 
-# docker, already installed on Debian?
+# docker
+curl -fsSL https://get.docker.com | sudo sh
 sudo usermod -aG docker $USER
 
 sudo apt-get -y install eza;  # better ls + tree with git and icons
 sudo apt-get -y install fzf;  # filter in STDIN https://github.com/junegunn/fzf
+
 sudo apt-get -y install git;
 sudo apt-get -y install hx;  # helix: vim with builtin LSP
+
+
+# Home assistant
+mkdir -p /opt/home-assistant
+cp ~/.dotfiles/home-assistant-docker-compose.yml /opt/home-assistant
+
+# -r: create a root directory
+# -m: with a home directory
+# -G docker: allow docker access
+sudo useradd -rm homeassistant -G docker
+
+# set folder ownership
+# run docker
+
 
 
 

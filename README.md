@@ -3,9 +3,8 @@
 ### On Mac
 
 1. Download the Armbian OS (third party)
-   1. Orange Pi Zero3: http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-Zero-3.html
-   2. Orange Pi Zero 2W: http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-Zero-2W.html
-2. Flash the Linux distro to an SD card with Balena Etcher
+   1. Don't install from Orange Pi's site (out of date)
+2. Flash Armbian to an SD card with Balena Etcher
 3. Connect the Orange Pi to power and to router via ethernet
 
 ### Asus router
